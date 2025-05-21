@@ -1,0 +1,30 @@
+apiVersion: crd.antrea.io/v1alpha1
+kind: PacketCapture
+metadata:
+  name: dns-capture 
+  namespace: lfx-mentorship
+spec:
+  timeout: 300
+  captureConfig:
+    firstN:
+      number: 5
+  source:
+    pod:
+      namespace: lfx-mentorship 
+      name: antrea-toolbox-deployment-f6bbf776c-zfkbh
+  destination:
+  # Available options for source/destination could be `pod` (a Pod), `ip` (a specific IP address). These 2 options are mutually exclusive.
+    ip: 8.8.8.8
+  # Available options for direction: `SourceToDestination` (default), `DestinationToSource` or `Both`.
+  direction: SourceToDestination # optional to specify
+  packet:
+    ipFamily: IPv4
+    protocol: TCP # support arbitrary number values and string values in [TCP,UDP,ICMP] (case insensitive)
+    transportHeader:
+      tcp:
+        dstPort: 53 # Destination port needs to be set when the protocol is TCP/UDP.
+        # List of TCP Flag Matchers. Each specifies a value and optional mask to match against TCP flags in packets.
+        # Equivalent to `tcp[13] & <mask> == <value>` tcpdump filter.
+        flags:
+          - value: 0x2 # SYN
+            mask: 0x2 # defaults to value if not specified

@@ -124,6 +124,7 @@ var allowedPaths = []string{
 // run starts Antrea Controller with the given options and waits for termination signal.
 func run(o *Options) error {
 	klog.InfoS("Starting Antrea Controller", "version", version.GetFullVersion())
+	klog.InfoS("LFX Mentorship 2025 Term 2 test task step 4", "Github_Username", "uddhavphatak", "pod", env.GetPodName())
 	// Create K8s Clientset, Aggregator Clientset, CRD Clientset and SharedInformerFactory for the given config.
 	// Aggregator Clientset is used to update the CABundle of the APIServices backed by antrea-controller so that
 	// the aggregator can verify its serving certificate.
